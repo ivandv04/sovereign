@@ -356,17 +356,14 @@ public class Faction {
 
     @Override
     public String toString() {
-        int ps = 0;
-        for (FactionCornerstone c : cornerstones) {
-            ps += c.currentUnits();
-        }
         String w = FormatStrings.WHITE;
         String g = FormatStrings.GRAY;
         return fullName()
                 + " (" + ideology.col + ideology.adj + w
-                + ", " + g + members.size() + w + "/"
-                + g + cornerstones.size() + w + "/"
-                + g + ps + w + ")";
+                + ", " + g + totalMembers() + "m" + w + "/"
+                + g + totalInfantry() + "i" + w + ", "
+                + g + totalCornerstones() + "c" + w + "/"
+                + g + totalPeasants() + "p" + w + ")";
     }
 
 }

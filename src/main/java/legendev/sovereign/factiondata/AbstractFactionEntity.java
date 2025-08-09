@@ -33,6 +33,10 @@ public abstract class AbstractFactionEntity<K> {
         return false;
     }
 
+    public void clearUnits() {
+        contained.clear();
+    }
+
     public String tryGetUnitName(UUID unit) {
         return contained.get(unit);
     }

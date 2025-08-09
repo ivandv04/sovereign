@@ -19,7 +19,10 @@ import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.ChunkPos;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
+import java.util.UUID;
 
 public final class CoupPacket {
 
@@ -65,10 +68,11 @@ public final class CoupPacket {
             // transfer spawned infantry
             FactionMember ideoMem = state.tryToGetMember(player.getUuid()); // should be new and empty
             assert ideoMem != null;
+            HashMap<UUID, String> transferredIds = new HashMap<>();
             for (VillagerInfantryEntity v : ((ServerWorld) player.getWorld()).getEntitiesByType(
                     TypeFilter.instanceOf(VillagerInfantryEntity.class), EntityPredicates.VALID_ENTITY)) {
                 // check ownership and transfer
-                if (getMem.hasUnit(v.getUuid()) && v.canBeStowed()) {
+                if (getMem.hasUnit(v.getUuid())) {
                     String name = v.getNameWithoutPrefix();
                     VillagerInfantryEntity newV = VillagerInfantryEntity.createFromIdeology(i, player.getWorld(),
                             VillagerInfantryEntity.DEFAULT_HP + i.col + name + FormatStrings.WHITE);
@@ -77,20 +81,25 @@ public final class CoupPacket {
                     newV.setYaw(v.getYaw());
                     v.remove(Entity.RemovalReason.DISCARDED);
                     player.getWorld().spawnEntity(newV);
-                    ideoMem.addUnit(newV.getUuid(), name);
+                    transferredIds.put(newV.getUuid(), name);
                     ((ServerWorld) player.getWorld()).spawnParticles(ParticleTypes.HAPPY_VILLAGER,
                             newV.getX(), newV.getY() + 1, newV.getZ(),
                             25, 0.5d, 1.0d, 0.5d, 0);
                 }
+            }
+            // remove un-transferred units from player control
+            // they will remain leaderless in the wild
+            ideoMem.clearUnits();
+            for (UUID u : transferredIds.keySet()) {
+                ideoMem.addUnit(u, transferredIds.get(u));
             }
             // send broadcast
             player.getWorld().playSound(null, player.getBlockPos(),
                     SoundEvents.ENTITY_WITHER_HURT, SoundCategory.AMBIENT,
                     3.0f, 0.5f);
             assert player.getDisplayName() != null;
-            String pref = i == FactionIdeology.ANARCHISM || i == FactionIdeology.OLIGARCHISM ? "An " : "A ";
-            announce(server, pref + i.col + i.adj + FormatStrings.WHITE + " revolution has commenced in "
-                    + faction.baseNameColoured() + ", led by " + player.getDisplayName().getString());
+            announce(server, player.getDisplayName().getString() + " is leading " + ideoF.baseNameColoured()
+                    + " in revolt against " + faction.baseNameColoured());
         });
     }
 

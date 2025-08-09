@@ -4,7 +4,6 @@ import legendev.sovereign.factiondata.Faction;
 import legendev.sovereign.payload.CodexEditPayload;
 import legendev.sovereign.persistent.FactionCodexState;
 import legendev.sovereign.util.ChatUtil;
-import legendev.sovereign.util.FormatStrings;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -124,12 +123,12 @@ public final class CodexEditPacket {
     }
 
     private static void listFactions(ServerPlayerEntity player, @NotNull FactionCodexState state) {
-        sendChat(player, "");
-        sendChat(player, FormatStrings.UNDERLINED + "There are "
-                + state.getFactionAmount() + " factions in this world:" + FormatStrings.RESET);
+        sendChat(player, "You begin reading the contents of the world codex");
         for (String s : state.getStringCollectionAs(player.getUuid()))
             sendChat(player, s);
-        sendChat(player, "");
+        sendChat(player, "The world codex contains " + state.allFactions()
+                + " factions in total, with a combined record of " + state.allCornerstones() + " cornerstones, "
+                + state.allMembers() + " players, and " + state.allPeasants() + " peasants");
     }
 
     private static void sendBroadcast(@NotNull ServerPlayerEntity player, String msg) {

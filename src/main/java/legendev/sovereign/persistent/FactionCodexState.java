@@ -39,8 +39,32 @@ public class FactionCodexState extends PersistentState {
         return factionKeyUpper++;
     }
 
-    public int getFactionAmount() {
+    public int allFactions() {
         return factions.size();
+    }
+
+    public int allMembers() {
+        int ps = 0;
+        for (Faction f : factions) {
+            ps += f.totalMembers();
+        }
+        return ps;
+    }
+
+    public int allCornerstones() {
+        int ps = 0;
+        for (Faction f : factions) {
+            ps += f.totalCornerstones();
+        }
+        return ps;
+    }
+
+    public int allPeasants() {
+        int ps = 0;
+        for (Faction f: factions){
+            ps+=f.totalPeasants();
+        }
+        return ps;
     }
 
     /**

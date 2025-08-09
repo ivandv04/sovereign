@@ -8,7 +8,7 @@ VERSION 0.0.1
 VERSION 0.0.2
 - Added villager infantry entities and training mechanics
 - Added ideology adoption and coup mechanics to factions
-- Altered villager trade mechanics
+- Removed villager trades for peasant units
 
 
 TODO (VERSION 0.0.2)

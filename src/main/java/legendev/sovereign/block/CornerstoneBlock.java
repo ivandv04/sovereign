@@ -117,6 +117,7 @@ public class CornerstoneBlock extends Block {
                 ChatUtil.sendErrorOverlay(player, "You are not in a faction");
             } else if (chunkFac != null) {
                 ChatUtil.sendErrorOverlay(player, chunkFac.name + " already occupies this chunk");
+                spawnParticleBorder((ServerWorld) world, pos);
             } else if (playerFac.inDanger()) {
                 ChatUtil.sendErrorOverlay(player, "Expel active threats before expanding");
             } else {
