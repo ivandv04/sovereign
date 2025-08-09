@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "minecraft:string"
+    },
+    {
+      "item": "minecraft:leather"
+    },
+    {
+      "item": "sovereign:corpse_starch"
+    }
+  ],
+  "result": {
+    "id": "sovereign:conscript_papers",
+    "count": 1
+  }
+}

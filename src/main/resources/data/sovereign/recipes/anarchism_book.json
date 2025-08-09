@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "sovereign:empty_notebook"
+    },
+    {
+      "item": "sovereign:communalism_book"
+    }
+  ],
+  "result": {
+    "id": "sovereign:anarchism_book",
+    "count": 1
+  }
+}

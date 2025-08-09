@@ -1,0 +1,41 @@
+Payloads should include the following syntax to be properly registered in the mod NetworkManager:
+
+
+
+// FILE START
+
+public record [CLASS NAME]([FIELDS...]) implements CustomPayload {
+
+    public static final Id<[CLASS NAME]> ID = PayloadUtil.createId([PATH]);
+
+    public static final PacketCodec<PacketByteBuf, [CLASS NAME]> CODEC
+            = PacketCodec.of([CLASS NAME]::deconstruct, [CLASS NAME]::construct);
+
+    @Override
+    public Id<? extends CustomPayload> getId() {
+        return ID;
+    }
+
+    private static void deconstruct(@NotNull [CLASS NAME] payload, @NotNull PacketByteBuf buf) {
+        // deconstruct the class instance into the packet buf
+    }
+
+    @Contract("_ -> new")
+    private static @NotNull [CLASS NAME] construct(@NotNull PacketByteBuf buf) {
+        return new [CLASS NAME]([FIELDS...]);
+    }
+
+}
+
+// FILE END
+
+
+
+Remember: a PAYLOAD simply covers up the ugly packet buf syntax which was previously needed to send packets over. Now,
+you are forced to make this class so that the packet may be sent as a simple Java object which contains built-in packet
+buf (de)construction.
+
+MAKE SURE TO REGISTER IN THE NETWORK MANAGER!
+
+A payload is useless without a corresponding packet to actually respond to the data. A payload is a (kind-of) data
+structure, not an executable.

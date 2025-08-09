@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "sovereign:empty_notebook"
+    },
+    {
+      "item": "sovereign:oligarchism_book"
+    }
+  ],
+  "result": {
+    "id": "sovereign:totalitarianism_book",
+    "count": 1
+  }
+}

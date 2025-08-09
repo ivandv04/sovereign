@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "sovereign:unravelled_shard"
+    },
+    {
+      "item": "sovereign:conscript_papers"
+    }
+  ],
+  "result": {
+    "id": "sovereign:build_camp",
+    "count": 1
+  }
+}

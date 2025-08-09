@@ -1,0 +1,49 @@
+{
+	"schemaVersion": 1,
+	"id": "sovereign",
+	"version": "0.0.2",
+	"name": "Sovereign",
+	"description": "Construct a fort of solitude in a vast and deathly world!",
+	"authors": [
+		"Legendev"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/sovereign/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"legendev.sovereign.Sovereign"
+		],
+		"client": [
+			"legendev.sovereign.SovereignClient"
+		],
+		"cardinal-components": [
+			"legendev.sovereign.cardinal.SovereignComponents"
+		]
+	},
+	"mixins": [
+		"sovereign.mixins.json",
+		{
+			"config": "sovereign.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.6",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	},
+	"custom": {
+		"cardinal-components": [
+			"sovereign:rand"
+		]
+	}
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RR",
+    "WR",
+    "C "
+  ],
+  "key": {
+    "R": {
+      "item": "sovereign:roasted_corpse"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    },
+    "C": {
+      "item": "sovereign:empty_can"
+    }
+  },
+  "result": {
+    "id": "sovereign:corpse_starch",
+    "count": 1
+  }
+}

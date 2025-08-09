@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "sovereign:empty_notebook"
+    }
+  ],
+  "result": {
+    "id": "sovereign:world_codex",
+    "count": 1
+  }
+}

@@ -1,0 +1,35 @@
+VERSION 0.0.1
+- Added the faction codex to persistent world data
+- Added interactive items to navigate the faction codex
+- Added assignable cornerstones and upgrade types to factions
+- Added villager citizen assignment functionality
+- Removed bucket obtainability outside of creative mode
+
+VERSION 0.0.2
+- Added villager infantry entities and training mechanics
+- Added ideology adoption and coup mechanics to factions
+- Altered villager trade mechanics
+
+
+TODO (VERSION 0.0.2)
+- Alter vanilla crop/livestock mechanics to introduce scarcity
+- Add villager resident queries to cornerstones
+- Add silk crops to enhance the obtainability of leads
+
+TODO (VERSION 0.0.3)
+- Add general infantry control mechanics and equipment
+- Add cornerstone ticking and annexation mechanics
+- Add general ideologue and militia mechanics
+- Add ore dust, ore plant, and mine cornerstone mechanics
+
+TODO (VERSION 0.0.4)
+- Add raid and uprising progression bars to factions
+- Add basic raid spawning and completion mechanics
+- Add cornerstone age modifiers to control raid severity
+- Add general insurgent and instability mechanics for uprisings
+- Alter vanilla hostile mob traits to increase their power and threat
+
+TODO (VERSION 0.1.0) "So It Begins"
+- Add unique instability contributors and effects for ideologies
+- Add unique infantry and militia features for relevant ideologies
+- Add basic famine mechanics and relevant ideology effects

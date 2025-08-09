@@ -1,0 +1,146 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.villager_infantry.idle": {
+			"loop": true,
+			"animation_length": 1
+		},
+		"animation.villager_infantry.idle_spear": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"vector": [-90, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.villager_infantry.walk_generic": {
+			"animation_length": 1,
+			"bones": {
+				"left_arm": {
+					"rotation": {
+						"vector": ["-math.sin(query.anim_time * 360) * 25", 0, 0]
+					}
+				},
+				"right_arm": {
+					"rotation": {
+						"vector": ["math.sin(query.anim_time * 360) * 25", 0, 0]
+					}
+				},
+				"left_leg": {
+					"rotation": {
+						"vector": ["math.sin(query.anim_time * 360) * 25", 0, 0]
+					}
+				},
+				"right_leg": {
+					"rotation": {
+						"vector": ["-math.sin(query.anim_time * 360) * 25", 0, 0]
+					}
+				}
+			}
+		},
+		"animation.villager_infantry.walk_spear": {
+			"animation_length": 1,
+			"bones": {
+				"left_arm": {
+					"rotation": {
+						"vector": ["-math.sin(query.anim_time * 360) * 25", 0, 0]
+					}
+				},
+				"right_arm": {
+					"rotation": {
+						"vector": [-90, 0, 0]
+					}
+				},
+				"left_leg": {
+					"rotation": {
+						"vector": ["math.sin(query.anim_time * 360) * 25", 0, 0]
+					}
+				},
+				"right_leg": {
+					"rotation": {
+						"vector": ["-math.sin(query.anim_time * 360) * 25", 0, 0]
+					}
+				}
+			}
+		},
+		"animation.villager_infantry.attack_generic": {
+			"animation_length": 0.5,
+			"override_previous_animation": true,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-120, 0, 0]
+						},
+						"0.0417": {
+							"vector": [-115, 0, 0]
+						},
+						"0.0833": {
+							"vector": [-100, 0, 0]
+						},
+						"0.125": {
+							"vector": [-37, 0, 0]
+						},
+						"0.1667": {
+							"vector": [-16, 0, 0]
+						},
+						"0.2083": {
+							"vector": [-8, 0, 0]
+						},
+						"0.3333": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.villager_infantry.attack_spear": {
+			"animation_length": 0.5,
+			"override_previous_animation": true,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-40, 0, 0]
+						},
+						"0.0417": {
+							"vector": [-35, 0, 0]
+						},
+						"0.0833": {
+							"vector": [-20, 0, 0]
+						},
+						"0.2083": {
+							"vector": [20, 0, 0]
+						},
+						"0.3333": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"left_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [30, 0, 0]
+						},
+						"0.0417": {
+							"vector": [25, 0, 0]
+						},
+						"0.0833": {
+							"vector": [10, 0, 0]
+						},
+						"0.2083": {
+							"vector": [-10, 0, 0]
+						},
+						"0.3333": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

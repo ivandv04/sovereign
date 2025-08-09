@@ -1,0 +1,32 @@
+Callbacks interfaces should have the following structure for best application to some custom event:
+
+
+
+// FILE START
+
+public interface [CALLBACK NAME] {
+
+    Event<[CALLBACK NAME]> EVENT = EventFactory.createArrayBacked(
+            [CALLBACK NAME].class,
+            (listeners) -> ([PARAMS...]) -> {
+                for ([CALLBACK NAME] listener : listeners) {
+                    ActionResult result = listener.[CALLBACK METHOD]([PARAMS...]);
+                    if (result != ActionResult.PASS) return result;
+                }
+                return ActionResult.PASS;
+            });
+
+    ActionResult [CALLBACK METHOD]([PARAMS...]);
+
+}
+
+// FILE END
+
+
+
+To register an event, simply implement this interface somewhere and then register the implementation object with the
+EVENT variable.
+
+Make sure to use a Mixin to inject this callback in all necessary places!
+
+This callback can be called via EVENT.invoker().[CALLBACK METHOD]([PARAMS...]);
