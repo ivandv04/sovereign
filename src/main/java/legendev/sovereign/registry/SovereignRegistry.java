@@ -6,15 +6,14 @@ import legendev.sovereign.event.CitizenKilledEvent;
 import legendev.sovereign.event.CornerstoneRemoveEvent;
 import legendev.sovereign.event.RenameEntityEvent;
 import legendev.sovereign.event.CitizenAssignmentEvent;
-import legendev.sovereign.registry.types.SovereignBlocks;
-import legendev.sovereign.registry.types.SovereignEntities;
-import legendev.sovereign.registry.types.SovereignItems;
-import legendev.sovereign.registry.types.SovereignSounds;
+import legendev.sovereign.registry.types.*;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.brain.Activity;
+import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -25,6 +24,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.poi.PointOfInterestType;
 
 public final class SovereignRegistry {
 

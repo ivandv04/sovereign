@@ -44,7 +44,7 @@ public final class CoupPacket {
                 return;
             }
             if (faction.inDanger()) {
-                sendError(player, "Expel active threats before perform coup");
+                sendError(player, "Expel active threats before performing coup");
                 return;
             }
             if (!cornerstone.getType().canStartCoup()) {

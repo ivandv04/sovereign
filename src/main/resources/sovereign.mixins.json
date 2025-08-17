@@ -4,7 +4,11 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "LivingEntityMixin",
-    "TradeOffersMixin"
+    "TradeOffersMixin",
+    "VillagerEntityMixin",
+    "PointOfInterestTypesMixin",
+    "accessor.ScheduleAccessor",
+    "accessor.VillagerEntityAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

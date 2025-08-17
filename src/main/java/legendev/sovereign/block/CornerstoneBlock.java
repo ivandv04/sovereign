@@ -13,6 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -43,7 +44,7 @@ public class CornerstoneBlock extends Block {
             ChatUtil.sendOverlay(player, type + " (" + chunkFac.name + ")");
             player.swingHand(Hand.MAIN_HAND);
             // show chunk border
-            spawnParticleBorder((ServerWorld) world, pos);
+            spawnParticleBorder((ServerWorld) world, pos, ParticleTypes.END_ROD);
         }
         return super.onUse(state, world, pos, player, hit);
     }
@@ -82,7 +83,7 @@ public class CornerstoneBlock extends Block {
                 chunkFac.tryRemoveCornerstoneAt(cPos);
                 if (!player.isCreative()) Block.dropStack(world, pos,
                         SovereignBlocks.CORNERSTONE_BLOCK.asItem().getDefaultStack());
-                spawnParticleBorder((ServerWorld) world, pos);
+                spawnParticleBorder((ServerWorld) world, pos, ParticleTypes.RAID_OMEN);
                 assert playerFac != null;
                 ChatUtil.sendOverlay(player, "Dismantled a cornerstone in " + playerFac.name);
                 return true;
@@ -115,15 +116,17 @@ public class CornerstoneBlock extends Block {
             Faction chunkFac = codex.tryToFindCornerstone(cPos);
             if (playerFac == null) {
                 ChatUtil.sendErrorOverlay(player, "You are not in a faction");
+                spawnParticleBorder((ServerWorld) world, pos, ParticleTypes.RAID_OMEN);
             } else if (chunkFac != null) {
                 ChatUtil.sendErrorOverlay(player, chunkFac.name + " already occupies this chunk");
-                spawnParticleBorder((ServerWorld) world, pos);
+                spawnParticleBorder((ServerWorld) world, pos, ParticleTypes.RAID_OMEN);
             } else if (playerFac.inDanger()) {
                 ChatUtil.sendErrorOverlay(player, "Expel active threats before expanding");
+                spawnParticleBorder((ServerWorld) world, pos, ParticleTypes.RAID_OMEN);
             } else {
                 // success!
                 playerFac.tryAddCornerstoneAt(cPos, TerritoryType.defaultType());
-                spawnParticleBorder((ServerWorld) world, pos);
+                spawnParticleBorder((ServerWorld) world, pos, ParticleTypes.HEART);
                 ChatUtil.sendOverlay(player, "Claimed a chunk for " + playerFac.name);
                 return;
             }
@@ -134,15 +137,16 @@ public class CornerstoneBlock extends Block {
         }
     }
 
-    private static void spawnParticleBorder(@NotNull ServerWorld world, BlockPos origin) {
+    public static void spawnParticleBorder(@NotNull ServerWorld world, BlockPos origin,
+                                            SimpleParticleType pType) {
         ChunkPos cPos = world.getChunk(origin).getPos();
         int xL = cPos.getStartX(), xH = cPos.getEndX();
         int zL = cPos.getStartZ(), zH = cPos.getEndZ();
-        for (int x = xL; x <= xH; x++)
-            for (int z = zL; z <= zH; z += (x == xL || x == xH ? 1 : zH - zL)) {
+        for (double x = xL; x <= xH; x += 0.5d)
+            for (double z = zL; z <= zH; z += (x == xL || x == xH ? 0.5d : zH - zL)) {
                 // summon particles on chunk edge
                 world.spawnParticles(
-                        ParticleTypes.END_ROD,
+                        pType,
                         x + 0.5d, origin.getY() + 0.5d, z + 0.5d,
                         1, 0d, 0d, 0d, 0d);
             }

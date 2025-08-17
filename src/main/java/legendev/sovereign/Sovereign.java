@@ -1,5 +1,7 @@
 package legendev.sovereign;
 
+import legendev.sovereign.mixinsetups.AccessorManager;
+import legendev.sovereign.registry.BrainObjectRegistry;
 import legendev.sovereign.registry.SovereignRegistry;
 import net.fabricmc.api.ModInitializer;
 
@@ -15,7 +17,12 @@ public class Sovereign implements ModInitializer {
     @Override
     public void onInitialize() {
         SovereignRegistry.register();
+        BrainObjectRegistry.registerPointsOfInterest();
         LOGGER.info("Finished Fabric mod setup");
+    }
+
+    static {
+        AccessorManager.run();
     }
 
 }

@@ -1,19 +1,26 @@
 package legendev.sovereign.item;
 
+import legendev.sovereign.block.CornerstoneBlock;
 import legendev.sovereign.factiondata.FactionCornerstone;
 import legendev.sovereign.registry.types.SovereignBlocks;
 import legendev.sovereign.factiondata.Faction;
 import legendev.sovereign.factiondata.TerritoryType;
 import legendev.sovereign.persistent.FactionCodexState;
+import legendev.sovereign.registry.types.SovereignSounds;
 import legendev.sovereign.util.ChatUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.NotNull;
 
 public class BuildTerritoryItem extends Item {
@@ -60,25 +67,40 @@ public class BuildTerritoryItem extends Item {
             if (!corEmp.is(playerFac)) {
                 ChatUtil.sendErrorOverlay(player,
                         "Cornerstone belongs to " + corEmp.name);
+                upgradeFailure(context);
             } else if (corEmp.inDanger()) {
                 ChatUtil.sendErrorOverlay(player, "Expel active threats before upgrading");
+                upgradeFailure(context);
             } else if (!cor.getType().isDefaultType()) {
                 ChatUtil.sendErrorOverlay(player, "There is already a "
                         + cor.getType().toString().toLowerCase() + " here");
+                upgradeFailure(context);
             } else if (type == TerritoryType.CAPITAL && corEmp.hasCapital()) {
                 ChatUtil.sendErrorOverlay(player, "Your faction already has a capital");
+                upgradeFailure(context);
             } else if (!corEmp.fitsConnectReq(getPos)
                     && !corEmp.canPassConnected() && type.requireConnected()) {
                 ChatUtil.sendErrorOverlay(player, "Invalid cornerstone adjacency");
+                upgradeFailure(context);
             } else {
+                assert playerFac != null;
                 if (!player.isCreative()) context.getStack().decrement(1);
                 cor.setType(type);
                 ChatUtil.sendOverlay(player, "Constructed a " + type.toString().toLowerCase()
                         + " cornerstone for " + playerFac.name);
+                CornerstoneBlock.spawnParticleBorder((ServerWorld) context.getWorld(),
+                        context.getBlockPos(), ParticleTypes.HEART);
+                player.playSoundToPlayer(
+                        SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.AMBIENT,
+                        0.75f, 1.25f);
             }
             return ActionResult.SUCCESS;
         }
         return super.useOnBlock(context);
     }
 
+    private static void upgradeFailure(@NotNull ItemUsageContext context) {
+        CornerstoneBlock.spawnParticleBorder((ServerWorld) context.getWorld(),
+                context.getBlockPos(), ParticleTypes.RAID_OMEN);
+    }
 }

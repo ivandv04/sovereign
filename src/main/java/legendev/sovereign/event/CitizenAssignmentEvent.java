@@ -5,6 +5,7 @@ import legendev.sovereign.factiondata.Faction;
 import legendev.sovereign.payload.CitizenPapersOpenPayload;
 import legendev.sovereign.persistent.FactionCodexState;
 import legendev.sovereign.registry.types.SovereignItems;
+import legendev.sovereign.registry.types.SovereignSounds;
 import legendev.sovereign.util.ChatUtil;
 import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -13,6 +14,7 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
@@ -95,6 +97,9 @@ public class CitizenAssignmentEvent implements UseEntityCallback {
             ChatUtil.sendOverlay(player, "Expelled " + villager.getCustomName().getString()
                     + " from " + playerFaction.name);
             villager.setCustomName(null);
+            player.playSoundToPlayer(
+                    SovereignSounds.CITIZEN_ASSIGN, SoundCategory.AMBIENT,
+                    0.75f, 1.25f);
         }
     }
 
