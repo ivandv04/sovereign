@@ -8,10 +8,11 @@ public enum CitizenType {
     INSURGENT,
     MILITIA;
 
+    /**
+     * Is this citizen type assignable to a player or cornerstone
+     */
     public boolean isAssignable() {
         return this == PEASANT || this == INFANTRY;
     }
-
-
 
 }

@@ -1,21 +1,12 @@
 package legendev.sovereign.mixinsetups;
 
-import com.google.common.collect.ImmutableMap;
 import legendev.sovereign.mixin.accessor.ScheduleAccessor;
-import legendev.sovereign.mixin.accessor.VillagerEntityAccessor;
 import legendev.sovereign.registry.BrainObjectRegistry;
 import net.minecraft.entity.ai.brain.Activity;
-import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.ai.brain.Schedule;
 import net.minecraft.entity.ai.brain.ScheduleBuilder;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.util.math.GlobalPos;
-import net.minecraft.world.poi.PointOfInterestType;
-
-import java.util.function.BiPredicate;
 
 public final class AccessorManager {
 

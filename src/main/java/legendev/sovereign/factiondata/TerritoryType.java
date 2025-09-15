@@ -22,7 +22,7 @@ public enum TerritoryType {
     MINE // Permits harvesting of precious ores
             (7, 0, 4);
 
-    public final int id;
+    public final int id; // needs to match blockstate textures
     public final int housing;
     public final int resilience;
 

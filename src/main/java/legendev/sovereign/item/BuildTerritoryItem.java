@@ -8,7 +8,9 @@ import legendev.sovereign.factiondata.TerritoryType;
 import legendev.sovereign.persistent.FactionCodexState;
 import legendev.sovereign.registry.types.SovereignSounds;
 import legendev.sovereign.util.ChatUtil;
+import legendev.sovereign.util.FormatStrings;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.item.TooltipType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -17,11 +19,14 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.random.Random;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class BuildTerritoryItem extends Item {
 
@@ -35,6 +40,13 @@ public class BuildTerritoryItem extends Item {
     @Override
     public boolean hasGlint(ItemStack stack) {
         return type == TerritoryType.CAPITAL;
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        if (this.type.requireConnected()) {
+            tooltip.add(Text.literal(FormatStrings.RED + "Non-removable"));
+        }
     }
 
     /*
@@ -86,6 +98,7 @@ public class BuildTerritoryItem extends Item {
                 assert playerFac != null;
                 if (!player.isCreative()) context.getStack().decrement(1);
                 cor.setType(type);
+                context.getWorld().setBlockState(context.getBlockPos(), state.with(CornerstoneBlock.TYPE, type.id));
                 ChatUtil.sendOverlay(player, "Constructed a " + type.toString().toLowerCase()
                         + " cornerstone for " + playerFac.name);
                 CornerstoneBlock.spawnParticleBorder((ServerWorld) context.getWorld(),

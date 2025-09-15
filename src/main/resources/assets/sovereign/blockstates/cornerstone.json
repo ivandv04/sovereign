@@ -1,6 +1,12 @@
 {
   "variants": {
-    "": { "model": "sovereign:block/cornerstone" }
+    "type=0": { "model": "sovereign:block/cornerstone" },
+    "type=1": { "model": "sovereign:block/cornerstone_farm" },
+    "type=2": { "model": "sovereign:block/cornerstone_residence" },
+    "type=3": { "model": "sovereign:block/cornerstone_temple" },
+    "type=4": { "model": "sovereign:block/cornerstone_capital" },
+    "type=5": { "model": "sovereign:block/cornerstone_barracks" },
+    "type=6": { "model": "sovereign:block/cornerstone_camp" },
+    "type=7": { "model": "sovereign:block/cornerstone_mine" }
   }
 }
-

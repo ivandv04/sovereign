@@ -15,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -26,8 +28,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class CornerstoneBlock extends Block {
 
+    public static final IntProperty TYPE = IntProperty.of("type", 0, 7);
+
     public CornerstoneBlock(@NotNull Settings settings) {
         super(settings.strength(3f, 100f));
+        this.setDefaultState(this.getStateManager().getDefaultState().with(TYPE, 0));
+    }
+
+    @Override
+    protected void appendProperties(StateManager.@NotNull Builder<Block, BlockState> builder) {
+        builder.add(TYPE);
     }
 
     @Override
@@ -54,13 +64,10 @@ public class CornerstoneBlock extends Block {
      *
      *  A player may break a cornerstone in a chunk under these conditions:
      * - The player is a member of the faction that occupies the chunk
-     * - The chunk is not currently housing any peasants
-     * - The faction that occupies the chunk is not currently in a raid
-     * - The faction that occupies the chunk is not currently in an uprising
+     * - The chunk type does not require adjacency (i.e. claim, camp)
      *
      * If the above conditions are met, the following will occur:
      * - The chunk will become unoccupied by its respective faction
-     * - The chunk will lose all territory-related abilities and effects
      */
     public static boolean validateBreak(@NotNull World world, PlayerEntity player,
                                         BlockPos pos, BlockState state) {
@@ -74,10 +81,8 @@ public class CornerstoneBlock extends Block {
             assert cornerstone != null;
             if (!chunkFac.is(playerFac)) {
                 ChatUtil.sendErrorOverlay(player, "Your faction does not control this chunk");
-            } else if (cornerstone.hasUnits()) {
-                ChatUtil.sendErrorOverlay(player, "Peasants still reside here");
-            } else if (chunkFac.inDanger()) {
-                ChatUtil.sendErrorOverlay(player, "Expel active threats before removing");
+            } else if (cornerstone.getType().requireConnected()) {
+                ChatUtil.sendErrorOverlay(player, "This territory type cannot be dismantled");
             } else {
                 // success!
                 chunkFac.tryRemoveCornerstoneAt(cPos);
